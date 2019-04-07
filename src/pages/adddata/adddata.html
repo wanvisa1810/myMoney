@@ -6,10 +6,34 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>adddata</ion-title>
+    <ion-title>ข้อมูลรายรับรายจ่าย</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-
+้<h2>เพิ่มข้อมูล</h2>
+<form (ngSubmit)="saveData()">
+  <ion-item>
+        <ion-label floating>วันที่</ion-label>
+        <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="data.date" name="data" required=""></ion-datetime>
+  </ion-item>
+  <ion-item>
+  <ion-label floating>ประเภท</ion-label>
+  <ion-select [(ngModel)]="data.type" name="type" required="">
+      <ion-option value="Income">รายรับ</ion-option>
+      <ion-option value="Expense">รายจ่าย</ion-option>
+      </ion-select>
+  </ion-item>
+  <ion-item>
+  <ion-label floating>รายละเอียด</ion-label>
+      <ion-input type="text"  placehotder="รายละเอียด" [(ngModel)]="data.description" name="description" requried>
+      </ion-input>
+  </ion-item>
+  <ion-item>
+  <ion-label floating>จำนวนเงิน</ion-label>
+      <ion-input type="number"  placehotder="จำนวนเงิน" [(ngModel)]="data.amount" name="amount" requried>
+      </ion-input>
+  </ion-item>
+  <button ion-button type="submit" block>บันทึกข้อมูล</button>
+</form>
 </ion-content>
