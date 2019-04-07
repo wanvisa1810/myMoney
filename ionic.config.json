@@ -1,6 +1,8 @@
 {
   "name": "myMoney",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "ionic-angular",
   "id": "b56c2213"
 }
