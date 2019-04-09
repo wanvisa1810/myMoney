@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { SQLite, SQLiteObject} from '@ionic-native/sqlite/ngx';
+import { SQLite, SQLiteObject} from '@ionic-native/sqlite';
 import { AdddataPage } from '../adddata/adddata';
 import { EditdataPage } from '../editdata/editdata';
 
@@ -32,10 +32,10 @@ export class HomePage {
       location: 'default'
     }).then(
       (db: SQLiteObject) =>{
-      db.executeSql('CREATE TABLE IF NOT EXISTS expense (rowid INTEGER PRIMARY KEY, date TEXT, type TEXT, description TEXT, amount INTEGER)')
+      db.executeSql('CREATE TABLE IF NOT EXISTS expense (rowid INTEGER PRIMARY KEY, date TEXT, type TEXT, description TEXT, amount INTEGER)',[])
         .then(res=>console.log('Executed SQL'))
         .catch(e=>console.log(e));
-      db.executeSql('SELECT * FROM expense ORDER BY rowid DESC')
+      db.executeSql('SELECT * FROM expense ORDER BY rowid DESC',[])
       .then(res=>{
         this.expenses=[];
         for(var i=0; i<res.rows.length; i++){
@@ -51,7 +51,7 @@ export class HomePage {
       })
       .catch(e=>console.log(e));
       //หารายรับรวม
-      db.executeSql('SELECT SUM(amount) AS totalIncome FROM expense WHERE type="Income"')
+      db.executeSql('SELECT SUM(amount) AS totalIncome FROM expense WHERE type="Income"',[])
       .then(res=>{
         if(res.row.length>0){
           this.totalIncome = parseInt(res.rows.item(0).totalIncome);
@@ -60,7 +60,7 @@ export class HomePage {
       })
       .catch(e=>console.log(e));
       //หารายจ่ายรวม
-      db.executeSql('SELECT SUM(amount) AS totalExpense FROM expense WHERE type="Expense"')
+      db.executeSql('SELECT SUM(amount) AS totalExpense FROM expense WHERE type="Expense"',[])
       .then(res=>{
         if(res.row.length>0){
           this.totalExpense = parseInt(res.rows.item(0).totalExpense);

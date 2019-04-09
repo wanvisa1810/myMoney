@@ -26,10 +26,10 @@
       </h3>
     </ion-item>
     <ion-item-options side="right">
-      <button ion-button color="primary" (click)="editData()">
+      <button ion-button color="primary" (click)="editData(exp.rowid)">
         <ion-icon name="paper"></ion-icon>
       </button>
-      <button ion-button color="danger" (click)="deleteData()">
+      <button ion-button color="danger" (click)="deleteData(exp.rowid)">
           <ion-icon name="trash"></ion-icon>
         </button>
     </ion-item-options>
