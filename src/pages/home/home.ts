@@ -14,6 +14,7 @@ export class HomePage {
   totalIncome = 0;
   totalExpense = 0;
   balance = 0;
+  i="";
   constructor(public navCtrl: NavController, public sqlite : SQLite) {
   }
 
@@ -46,7 +47,7 @@ export class HomePage {
               type: res.rows.item(i).type,
               description: res.rows.item(i).description,
               amount: res.rows.item(i).amount
-          })
+          });
         }
       })
       .catch(e=>console.log(e));
@@ -55,45 +56,52 @@ export class HomePage {
       .then(res=>{
         if(res.row.length>0){
           this.totalIncome = parseInt(res.rows.item(0).totalIncome);
-          this.balance = this.totalIncome-this.totalExpense;
+        }else{
+          this.totalIncome=0;
         }
+        this.balance=this.totalIncome - this.totalExpense;
       })
       .catch(e=>console.log(e));
-      //หารายจ่ายรวม
-      db.executeSql('SELECT SUM(amount) AS totalExpense FROM expense WHERE type="Expense"',[])
-      .then(res=>{
-        if(res.row.length>0){
-          this.totalExpense = parseInt(res.rows.item(0).totalExpense);
-          this.balance = this.totalIncome-this.totalExpense;
+        //หารายจ่ายรวม
+        db.executeSql('SELECT SUM(amount) AS totalExpense FROM expense WHERE type="Expense"',[])
+          .then(res=>{
+            if(res.rows.length>0){
+              this.totalExpense = parseInt(res.rows.item(0).totalExpense);
+            }
+            else{
+              this.totalExpense=0;
+            }
+            this.balance = this.totalIncome - this.totalExpense;
+          })
+          .catch(e=>{console.log(e);});
       }
-    })
-  }).catch(e=>console.log(e));
+    );
   }
   addData(){
     this.navCtrl.push(AdddataPage);
   }
 
   editData(rowid){
-  this.navCtrl.push(EditdataPage, {
-    rowid:rowid
-  });
+    this.navCtrl.push(EditdataPage,{ rowid : rowid });
   }
 
   deleteData(rowid){
-    this.sqlite.create({
-      name: 'ionicdb.db',
-      location: 'dedault'
-    })
+    this.sqlite.create(
+      {
+        name: 'ionicdb.db',
+        location: 'default'
+      }
+    )
     .then(
-      (db: SQLiteObject) =>{
-      db.executeSql('DELETE FROM expense WHERE rowid=?',[rowid])
-        .then(res=>{
-          console.log(res);
-          this.getData();
-        })
-        .catch(e=>console.log(e));
-    })
+      (db: SQLiteObject)=>{
+        db.executeSql('DELETE FROM expense WHERE rowid=?',[rowid])
+          .then(res=>{
+            console.log(res);
+            this.getData();
+          })
+          .catch(e=>console.log(e));
+      }
+    )
     .catch(e=>console.log(e));
-    }
   }
-
+}
