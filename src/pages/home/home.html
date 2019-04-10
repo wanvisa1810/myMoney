@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-     บัญชีรายรับ-รายจ่าย
+      บัญชีรายรับ - รายจ่าย
     </ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="addData()">
@@ -12,32 +12,32 @@
 </ion-header>
 
 <ion-content padding>
- <h3>รายการรายจ่าย</h3>
- <ion-list>
-   <ion-item-sliding *ngFor="let expense of expenses; let i=index">
-    <ion-item nopadding>
-      <p>
-        <span>{{exp.date}}</span><br>
-        Type: {{exp.type}} <br>
-        {{exp.description}}
-      </p>
-      <h3 item-end>
-        Amount: {{exp.amount}}
-      </h3>
-    </ion-item>
-    <ion-item-options side="right">
-      <button ion-button color="primary" (click)="editData(exp.rowid)">
-        <ion-icon name="paper"></ion-icon>
-      </button>
-      <button ion-button color="danger" (click)="deleteData(exp.rowid)">
-          <ion-icon name="trash"></ion-icon>
+  <h3>รายการรับ-จ่าย</h3>
+  <ion-list>
+    <ion-item-sliding *ngFor="let exp of expenses; let i=index">
+      <ion-item nopadding>
+        <p>
+          <span>{{exp.date}}</span><br>
+          Type: {{exp.type}}<br>
+          {{exp.description}}
+        </p>
+        <h3 item-end>
+            Amount: {{exp.amount}}
+        </h3>
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button color="primary" (click)="editData(exp.rowid)">
+          <ion-icon name="paper"></ion-icon>
         </button>
-    </ion-item-options>
-   </ion-item-sliding>
- </ion-list>
+        <button ion-button color="danger" (click)="deleteData(exp.rowid)">
+            <ion-icon name="trash"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 </ion-content>
 <ion-footer>
-    <ion-toolbar>
-      <ion-title>ยอดเงินคงเหลือ: ฿ {{balance}} </ion-title>
-    </ion-toolbar>
+  <ion-toolbar>
+    <ion-title>ยอดคงเหลือ: ฿{{balance}}</ion-title>
+  </ion-toolbar>
 </ion-footer>
